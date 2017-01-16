@@ -28,6 +28,17 @@ class TaskodromePlugin extends MantisPlugin
     );
   }
 
+  public function menu()
+  {
+    $links = array();
+    $links[] = array(
+      'title' => plugin_lang_get("board"),
+      'url' => plugin_page("main"),
+      'icon' => 'fa-columns'
+    );
+    return $links;
+  }
+
   public function config()
   {
     $status_list = explode(',', lang_get( 'status_enum_string' ));
