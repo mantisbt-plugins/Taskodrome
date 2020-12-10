@@ -33,7 +33,7 @@ function Block(name, /** @type {ColumnHandler} */columnHandler, /** @type {Page}
     var columnIndex = columnHandler.getColumnIndexByCard(card);
     if (columnIndex != -1) {
       ++m_cardCount;
-      pushByDate(columnIndex, card);
+      m_columns[columnIndex].push(card);
       m_blockGr.incCounter(columnIndex);
     }
     return columnIndex;
@@ -280,19 +280,5 @@ function Block(name, /** @type {ColumnHandler} */columnHandler, /** @type {Page}
 
   this.toBeDrawn = function() {
     return (m_cardCount != 0) || m_showIfEmpty;
-  };
-
-  function pushByDate(columnIndex, card) {
-    var column = m_columns[columnIndex];
-    var i = 0;
-    var done = false;
-    while (i != column.length && !done) {
-      if (column[i].getUpdateTime() > card.getUpdateTime()) {
-        ++i;
-      } else {
-        done = true;
-      }
-    }
-    column.splice(i, 0, card);
   };
 };
