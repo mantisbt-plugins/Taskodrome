@@ -7,8 +7,10 @@ function ColumnHandler(/** @type {Array.<String>} */headers, canvasWidth) {
 
   this.getColumnIndex = function(name) {
     for (var i = 0; i != headers.length; ++i) {
-      if (headers[i].toLowerCase() == name.toLowerCase()) {
-        return i;
+      if(name != undefined) {
+        if (headers[i].toLowerCase() == name.toLowerCase()) {
+          return i;
+        }
       }
     }
     return -1;
