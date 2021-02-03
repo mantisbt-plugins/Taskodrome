@@ -38,7 +38,7 @@ var DataSource = (function() {
         priority: el.getAttribute("priority"),
         priorityCode: parseInt(el.getAttribute("priorityCode"), 10),
         reproducibility: el.getAttribute("reproducibility"),
-         version: el.getAttribute("version"),
+        version: el.getAttribute("version"),
         relation: el.getAttribute("relation")
       };
     }
