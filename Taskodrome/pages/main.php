@@ -87,6 +87,30 @@
         $relationships_html .= 'dest_bug_id="'.$rels[$rel_i]->dest_bug_id.'" ';
         $relationships_html .= 'type="'.$rels[$rel_i]->type.'" ';
         $relationships_html .= '></p>';
+        
+        foreach($rels as $key => $value) {
+          $row_rel = bug_get_extended_row($value->dest_bug_id);
+          if($row_rel['status'] < 90 ) {
+            $issues_array_html .= '<p class="issue_data" ';
+            $issues_array_html .= 'id="'.$row_rel['id'].'" ';
+            $summary = strip_tags($row_rel['summary']);
+            $summary = str_replace('"', '&#34;', $summary);
+            $issues_array_html .= 'summary="'.$summary.'" ';
+            $issues_array_html .= 'status="'.$row_rel['status'].'" ';
+            $issues_array_html .= 'handler_id="'.$row_rel['handler_id'].'" ';
+            $issues_array_html .= 'updateTime="'.$row_rel['last_updated'].'" ';
+            $description = strip_tags($row_rel['description']);
+            $description = str_replace('"', '&#34;', $description);
+            $issues_array_html .= 'description="'.$description.'" ';
+            $issues_array_html .= 'severity="'.get_enum_element('severity', $row_rel['severity']).'" ';
+            $issues_array_html .= 'priority="'.get_enum_element('priority', $row_rel['priority']).'" ';
+            $issues_array_html .= 'priorityCode="'.$row_rel['priority'].'" ';
+            $issues_array_html .= 'reproducibility="'.get_enum_element('reproducibility', $row_rel['reproducibility']).'" ';
+            $issues_array_html .= 'version="'.$row_rel['target_version'].'" ';
+            $issues_array_html .= 'relation="yes" ';
+            $issues_array_html .= '></p>';
+          }
+        }
       }
 
       $issues_array_html .= '<p class="issue_data" ';
@@ -105,6 +129,7 @@
       $issues_array_html .= 'priorityCode="'.$t_row->priority.'" ';
       $issues_array_html .= 'reproducibility="'.get_enum_element('reproducibility', $t_row->reproducibility).'" ';
       $issues_array_html .= 'version="'.$t_row->target_version.'" ';
+      $issues_array_html .= 'relation="no" ';
       $issues_array_html .= '></p>';
 
       $t_row_statuses = get_status_option_list(access_get_project_level( $t_row->project_id ), $t_row->status, true, false, $t_row->project_id);
